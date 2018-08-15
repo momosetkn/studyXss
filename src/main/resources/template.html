@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>template</title>
+</head>
+<body>
+    <h1>xss_test</h1>
+    <div>
+        <div>{{ message | escape(strategy=html) }}</div>
+        <div>{{ message | escape(strategy=html5) }}</div>
+    </div>
+</body>
+</html>
