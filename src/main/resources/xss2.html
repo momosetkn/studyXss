@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>なんでも屋</title>
+</head>
+<body style="background-color: white; color: black;">
+    <h1>なんでも屋</h1>
+    {% if params.bought[0] == "true" %}
+    <font color="red">購入完了しました</font>
+    {% endif %}
+    <form action="" method="POST">
+        <input type="hidden" name="bought" value="true">
+        品物<input type="text" name="product" value="{{ params.product[0] | raw }}"><br>
+        電話<input type="text" name="tel" value="{{ params.tel[0] | raw }}"><br>
+        住所<input type="text" name="addr" value="{{ params.addr[0] | raw }}"><br>
+        名前<input type="text" name="name" value="{{ params.name[0] | raw }}"><br>
+        <input type="submit" value="購入">
+    </form>
+</body>
+</html>

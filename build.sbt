@@ -17,7 +17,9 @@ libraryDependencies ++= Seq(
   "org.eclipse.jetty" % "jetty-webapp" % "9.4.9.v20180320" % "container",
   "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided",
   // https://mvnrepository.com/artifact/io.pebbletemplates/pebble
-  "io.pebbletemplates" % "pebble" % "3.0.2"
+  "io.pebbletemplates" % "pebble" % "3.0.2",
+  // https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark-all
+  "com.vladsch.flexmark" % "flexmark-all" % "0.34.16"
 )
 
 enablePlugins(SbtTwirl)

