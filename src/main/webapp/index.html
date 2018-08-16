@@ -6,8 +6,22 @@
 </head>
 <body>
     <h1>Webセキュリティ</h1>
+    <a href="./writeCookie">クッキー書き込み</a>
     <ul>
-        <li><a href="./xss">xss</a></li>
+        <li>1. XSSによるクッキー値の盗み出し
+            <ul>
+                <li>
+                    <a href="./xss1?keyword=hello!">keyword=hello!</a>
+                </li>
+                <li>
+                    <a href="./xss1?keyword=<script>alert(document.cookie)</script>">keyword=&lt;script&gt;alert(document.cookie)&lt;/script&gt;</a>
+                    ※Chromeだとガードされるよ
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <ul>
+        <li><a href="http://trap:8080/trap">罠サイト</a></li>
     </ul>
 </body>
 </html>

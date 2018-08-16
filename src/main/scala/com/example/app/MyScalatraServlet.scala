@@ -1,9 +1,9 @@
 package com.example.app
 
+//import com.example.app.PebbleTemplate.evaluate
 import org.scalatra._
 
-class MyScalatraServlet extends ScalatraServlet {
-
+class MyScalatraServlet extends ScalatraServlet with PebbleTemplate{
   get("/hello") {
     views.html.hello()
   }
@@ -12,13 +12,24 @@ class MyScalatraServlet extends ScalatraServlet {
     views.html.xss("<script>alert('hello');</script>")
   }
 
-  get("/template") {
-    val context: Map[String, AnyRef] =  Map(
-      "message" -> params("q")
-    )
-    response.setContentType("Content-Type: text/html;charset=utf-8")
-    PebbleTemplate.evaluate("template.html", context)
+  //作ったコンテンツ
+  get("/writeCookie"){
+    cookies += ("cookieKey", "cookieValue")
+    <h1>Cookieに書き込みました</h1>
   }
 
+  get("/xss1") {
+    evaluate("xss1.html",
+      "keyword" -> params("keyword"))
+  }
+
+  //trap
+  get("/trap/randing"){
+    evaluate("trap/randing.html")
+  }
+
+  get("/trap/getCookie"){
+    evaluate("trap/getCookie.html", "sid" -> params("sid"))
+  }
 
 }
