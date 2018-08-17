@@ -11,10 +11,10 @@
         <li>1. XSSによるクッキー値の盗み出し
             <ul>
                 <li>
-                    <a href="./xss1?keyword=hello!">keyword=hello!</a>
+                    <a href="./keyword?keyword=hello!">keyword=hello!</a>
                 </li>
                 <li>
-                    <a href="./xss1?keyword=<script>alert(document.cookie)</script>">keyword=&lt;script&gt;alert(document.cookie)&lt;/script&gt;</a>
+                    <a href="./keyword?keyword=<script>alert(document.cookie)</script>">keyword=&lt;script&gt;alert(document.cookie)&lt;/script&gt;</a>
                     ※Chromeだとガードされるよ
                 </li>
             </ul>

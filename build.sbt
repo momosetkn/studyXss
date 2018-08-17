@@ -19,7 +19,9 @@ libraryDependencies ++= Seq(
   // https://mvnrepository.com/artifact/io.pebbletemplates/pebble
   "io.pebbletemplates" % "pebble" % "3.0.2",
   // https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark-all
-  "com.vladsch.flexmark" % "flexmark-all" % "0.34.16"
+  "com.vladsch.flexmark" % "flexmark-all" % "0.34.16",
+  // https://mvnrepository.com/artifact/commons-io/commons-io
+  "commons-io" % "commons-io" % "2.6"
 )
 
 enablePlugins(SbtTwirl)

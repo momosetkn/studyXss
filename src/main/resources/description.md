@@ -61,8 +61,8 @@ DOM-based XSSといってサーバーを経由せずにJavaScriptのみで表示
 
 # HTMLエスケープ
 
-- 要素内容: `<`,`>`,`&`を文字参照に
-- 属性値: ダブルクォートで囲んで`<`,`>`,`&`,`"`
+- 要素内容: `<`,`&`を文字参照に
+- 属性値: ダブルクォートで囲んで`<`,`&`,`"`
 ※シングルクォートで囲む場合は`'`もエスケープすること
 
 ※`&`もエスケープするのは文字参照のガードのため
@@ -94,3 +94,34 @@ response.setContentType("text/html;charset=utf-8")
 ```
 X-XSS-Protection
 ```
+参考情報
+[X\-XSS\-Protection \- HTTP \| MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)
+
+## 入力値検証も保険になる（文字数不足）
+## CookieをHttpOnly属性にして、JavaScriptからの読み出しをガードする
+
+## TRACEメソッド
+
+[実はそんなに怖くないTRACEメソッド \| 徳丸浩の日記](https://blog.tokumaru.org/2013/01/TRACE-method-is-not-so-dangerous-in-fact.html)
+
+さらっとしか説明がなかったです。
+2006年頃にすべてのブラウザで対応済みらしい。
+しかし、脆弱性診断ではサーバーサイドでtraceメソッドを許容していると脆弱性とみなされることもある。
+
+# エスケープ（発展編）
+
+## hrefやsrc属性
+
+`^https?://.*$`かどうか
+javascript:を使えないようにするため
+
+リンク先のドメインチェック
+
+## JavaScriptの動的生成
+
+\ => \\
+' => \'
+" => \"
+改行 => \n
+
+

@@ -1,0 +1,19 @@
+@(initMsg: String, url: String, badUrl: Boolean)
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>xss</title>
+    <script>
+        var init = a => console.log(a);
+    </script>
+</head>
+<body onload="init('@initMsg');">
+
+@if( badUrl ) {
+    <div>httpsかhttpしか許容してません</div>
+} else if( !url.isEmpty ) {
+    <a href="@url">url</a>
+}
+</body>
+</html>

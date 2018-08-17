@@ -1,0 +1,14 @@
+@(bought:String, product:String, tel:String, addr:String, name:String)
+@layouts.html.default("なんでも屋"){
+  @if("true" == bought) {
+    <div style="color: red">購入完了しました</div>
+  }
+  <form action="" method="POST">
+    <input type="hidden" name="bought" value="true">
+    品物<input type="text" name="product" value="@Html(product)"><br>
+    電話<input type="text" name="tel" value="@Html(tel)"><br>
+    住所<input type="text" name="addr" value="@Html(addr)"><br>
+    名前<input type="text" name="name" value="@Html(name)"><br>
+    <input type="submit" value="購入">
+  </form>
+}

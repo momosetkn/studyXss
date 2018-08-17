@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>xss</title>
+    <script>
+        var init = a => console.log("init"+a);
+    </script>
+</head>
+<body onload="init('{{ initMsg | escape(strategy="js") }}');">
+
+{% if badUrl %}
+    <div style="color: red;">httpsかhttpしか許容してません</div>
+{% elseif url is not empty %}
+    <a href="{{url}}">url</a>
+{% endif %}
+
+<script>
+    console.log('{{ logMsg }}');
+</script>
+</body>
+</html>

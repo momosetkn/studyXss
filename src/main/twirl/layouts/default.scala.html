@@ -1,10 +1,11 @@
-@(title: String, headline: String)(body: Html)
+@(title: String)(body: Html)
 <html>
   <head>
+    <meta charset="UTF-8">
     <title>@title</title>
   </head>
-  <body>
-    <h1>@headline</h1>
+  <body style="background-color: white; color: black;">
+    <h1>@title</h1>
     @body
   </body>
 </html>
