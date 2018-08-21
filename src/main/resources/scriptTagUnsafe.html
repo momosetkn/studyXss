@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>scriptタグ</title>
+</head>
+<body>
+
+<h1>スクリプトタグ</h1>
+
+<div id="msg">
+
+</div>
+
+<script>
+    document.getElementById("msg").innerText = '{{ logMsg | raw }}';
+</script>
+
+</body>
+</html>

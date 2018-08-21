@@ -1,5 +1,5 @@
 # Webセキュリティ３回目「表示処理に伴う問題
 
-[説明](./description)
+[基本編](basic.md)
 
-[実演](./demo)
+[発展編](advanced.md)

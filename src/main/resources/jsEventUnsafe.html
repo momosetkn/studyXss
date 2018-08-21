@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>xss</title>
+    <script>
+        var init = a => document.getElementById('initMsg').innerText = ("initMsg: "+a);
+    </script>
+</head>
+<body onload="init('{{ initMsg | escape(strategy="html") }}');">
+
+<div>
+イベントハンドラのXSS
+<span id="initMsg">
+</span>
+</div>
+
+</body>
+</html>

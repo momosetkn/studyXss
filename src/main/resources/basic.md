@@ -1,4 +1,4 @@
-# Webセキュリティ３回目「表示処理に伴う問題」説明
+# Webセキュリティ３回目「表示処理に伴う問題_基本編
 
 とは？
 - XSS
@@ -37,6 +37,39 @@ JavaScriptを実行させて、WebAPIを叩いてイタズラされる
 
 サンプルコードでは入力画面と編集画面を兼ねており、入力値の初期値が設定できる画面を紹介されている。
 
+# XSS基本編の実演
+
+# 1. Cookie使ってて入力値そのまま出してる系
+
+XSSでCookie値の盗み出してみます
+
+事前準備 => [クッキー書き込み](./writeCookie)
+
+1. 入力パラメータをそのまま画面に表示するアプリです
+- 正常系: [keyword=hello!](./keyword?keyword=hello!)
+- XSSさせてみる: [keyword=&lt;script&gt;alert(document.cookie)&lt;/script&gt;](./keyword?keyword=<script>alert(document.cookie)</script>)
+※Chromeだとガードされるよ
+
+2. 実際に悪用してみる
+
+- [罠サイト（受動的攻撃）](http://trap:8080/trap/keywordRanding)※Chromeだとガードされるよ
+
+# 2. Cookie使ってないけど、登録があるアプリで入力値そのまま出してる系
+
+罠サイト経由で正規サイトにXSSして、罠サイトへPostさせる
+
+[正常系](./nandemoya)
+
+[罠サイト](http://trap:8080/trap/nandemoyaRanding)※Chromeだとガードされるよ
+
+# 3. エスケープしてるけど属性値を囲ってないXSS脆弱性
+
+[正常系1](./attr?text=text)
+
+[正常系2](./attr?text=<">')
+
+[XSS](./attr?text=text+onmouseover%3Dalert(document.cookie))
+
 ***
 
 # 攻撃用のJavaScriptがどこにあるか？で考えてみる
@@ -59,29 +92,13 @@ DOM-based XSSといってサーバーを経由せずにJavaScriptのみで表示
 
 ***
 
-# HTMLエスケープ
-
-- 要素内容: `<`,`&`を文字参照に
-- 属性値: ダブルクォートで囲んで`<`,`&`,`"`
-※シングルクォートで囲む場合は`'`もエスケープすること
-
-※`&`もエスケープするのは文字参照のガードのため
-
-参考情報
-
-[【PHP関連】「&」（アンパサンド）をエスケープしなければならない実例: WEBプログラミング NOW\!](http://shimax.cocolog-nifty.com/search/2007/12/php_f864.html)
-
 # 文字コードはちゃんと指定しましょう。
 
 XSSの原因になることもある。
 文字コードによる脆弱性もある（後続の６章で説明される）。
 
-```php
-header('Content-Type: text/html;charset=utf-8');
 ```
-
-```scala
-response.setContentType("text/html;charset=utf-8")
+Content-Type: text/html;charset=utf-8
 ```
 
 # XSSの保険的対策
@@ -89,13 +106,24 @@ response.setContentType("text/html;charset=utf-8")
 対策する箇所多い、漏れが発生するかも？
 ＝＞漏れがあっても大丈夫なようにする
 
-イマドキのブラウザはXSSフィルタ搭載がされている
+イマドキのブラウザはXSSフィルタ搭載がされている、らしいですが、
+
+FireFoxだけなぜかサポートされてないようです。
 
 ```
 X-XSS-Protection
 ```
 参考情報
 [X\-XSS\-Protection \- HTTP \| MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)
+
+# 実演
+
+- [X-XSS-Protection: 0](./xssProtection_0?keyword=<script>alert(document.cookie)</script>)
+- [X-XSS-Protection: 1](./xssProtection_1?keyword=<script>alert(document.cookie)</script>)
+- [X-XSS-Protection: 1; mode=block](./xssProtection_1block?keyword=<script>alert(document.cookie)</script>)
+- [X-XSS-Protection: 1; report=http://localhost:8080/police](./xssProtection_1report?keyword=<script>alert(document.cookie)</script>)
+- [X-XSS-Protection: 1; mode=block; report=http://localhost:8080/police](./xssProtection_1blockReport?keyword=<script>alert(document.cookie)</script>)
+
 
 ## 入力値検証も保険になる（文字数不足）
 ## CookieをHttpOnly属性にして、JavaScriptからの読み出しをガードする
@@ -107,22 +135,4 @@ X-XSS-Protection
 さらっとしか説明がなかったです。
 2006年頃にすべてのブラウザで対応済みらしい。
 しかし、脆弱性診断ではサーバーサイドでtraceメソッドを許容していると脆弱性とみなされることもある。
-
-# エスケープ（発展編）
-
-## hrefやsrc属性
-
-`^https?://.*$`かどうか
-javascript:を使えないようにするため
-
-リンク先のドメインチェック
-
-## JavaScriptの動的生成
-
-\ => \\
-' => \'
-" => \"
-改行 => \n
-※バッククォート
-
 

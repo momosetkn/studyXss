@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>外部リンク</title>
+</head>
+<body>
+
+<h1>外部リンク</h1>
+
+<div>
+{% if badUrl %}
+    <span style="color: red;">不正なパラメータです</span>
+{% else %}
+    <a href="{{url}}">url</a>
+{% endif %}
+</div>
+
+</body>
+</html>

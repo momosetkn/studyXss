@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>リンク</title>
+</head>
+<body>
+
+<h1>リンク</h1>
+
+<div>
+{% if badUrl %}
+    <span style="color: red;">httpsかhttpしか許容してません</span>
+{% elseif ownUrl %}
+    <a href="./foreignLink?url={{url}}">url</a>
+{% elseif url is not empty %}
+    <a href="{{url}}">url</a>
+{% endif %}
+</div>
+
+</body>
+</html>

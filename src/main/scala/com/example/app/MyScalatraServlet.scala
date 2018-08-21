@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets
 import java.util.regex.{Matcher, Pattern}
 
 import org.apache.commons.io.IOUtils
+import org.apache.commons.lang3.StringUtils
 import org.scalatra._
 import org.slf4j.{Logger, LoggerFactory}
 
@@ -22,13 +23,14 @@ class MyScalatraServlet extends ScalatraServlet
   get("/"){
     markdown("index.md")
   }
-  get("/demo"){
-    markdown("demo.md")
-  }
-  get("/description"){
-    markdown("description.md")
+  get("/*.md"){
+    markdown(requestPath)
   }
 
+  //基本的にセキュリティ低め設定
+  before("*"){
+    response.setHeader("X-XSS-Protection", "0")
+  }
 
   //2
   get("/writeCookie"){
@@ -87,20 +89,63 @@ class MyScalatraServlet extends ScalatraServlet
   }
 
   //6
-  get("/other") {
-    val initMsg = request.getParameter("initMsg")
+  get("/link") {
     val url = request.getParameter("url")
-    val badUrl: java.lang.Boolean = !url.isEmpty && !caseInsentiveMatches("^https?://.*$", url)
-    val logMsg = request.getParameter("logMsg")
+    val badUrl: java.lang.Boolean = StringUtils.isNotEmpty(url) && !caseInsentiveMatches("^https?://.*$", url)
+    val ownUrl: java.lang.Boolean = StringUtils.isNotEmpty(url) && !caseInsentiveMatches("^https?://localhost:8080/.*$", url)
 
-//    views.html.other(initMsg, url, badUrl)
-
-    html("otherSafe.html",
-      "initMsg" -> initMsg,
+    html("link.html",
       "url" -> url,
       "badUrl" -> badUrl,
+      "ownUrl" -> ownUrl
+    )
+  }
+
+  get("/linkUnsafe") {
+    val url = request.getParameter("url")
+    val badUrl: java.lang.Boolean = StringUtils.isNotEmpty(url) && !caseInsentiveMatches("^https?://.*$", url)
+    val ownUrl: java.lang.Boolean = StringUtils.isNotEmpty(url) && !caseInsentiveMatches("^https?://localhost:8080/.*$", url)
+
+    html("linkUnsafe.html",
+      "url" -> url,
+      "badUrl" -> badUrl,
+      "ownUrl" -> ownUrl
+    )
+  }
+  get("/jsEvent") {
+    val initMsg = request.getParameter("initMsg")
+
+    html("jsEvent.html",
+      "initMsg" -> initMsg)
+  }
+  get("/jsEventUnsafe") {
+    val initMsg = request.getParameter("initMsg")
+
+    html("jsEventUnsafe.html",
+      "initMsg" -> initMsg)
+  }
+
+  get("/scriptTag") {
+    val logMsg = request.getParameter("logMsg")
+
+    html("scriptTag.html",
       "logMsg" -> logMsg
     )
+  }
+  get("/scriptTagUnsafe") {
+    val logMsg = request.getParameter("logMsg")
+
+    html("scriptTagUnsafe.html",
+      "logMsg" -> logMsg
+    )
+  }
+
+  get("/foreignLink"){
+    val url = request.getParameter("url")
+    val badUrl: java.lang.Boolean = StringUtils.isNotEmpty(url) && !caseInsentiveMatches("^https?://.*$", url)
+    html("foreignLink.html",
+      "url" -> url,
+      "badUrl" -> badUrl)
   }
 
   /**

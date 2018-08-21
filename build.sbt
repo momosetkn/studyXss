@@ -21,7 +21,10 @@ libraryDependencies ++= Seq(
   // https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark-all
   "com.vladsch.flexmark" % "flexmark-all" % "0.34.16",
   // https://mvnrepository.com/artifact/commons-io/commons-io
-  "commons-io" % "commons-io" % "2.6"
+  "commons-io" % "commons-io" % "2.6",
+  // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+  "org.apache.commons" % "commons-lang3" % "3.7"
+
 )
 
 enablePlugins(SbtTwirl)
