@@ -18,6 +18,8 @@
 DOM-based XSSといってサーバーを経由せずにJavaScriptのみで表示しているパラメータがある場合に発生する可能性がある。
 詳しくは4.17「JavaScriptの問題」で解説（と書いてあった）。
 
+[あまり知られていない脆弱性：DOM Based XSSにご用心 : アークウェブのブログ](https://www.ark-web.jp/blog/archives/2007/02/dom_based_xss.html)
+
 ***
 
 # 文字コードはちゃんと指定しましょう。
@@ -68,4 +70,14 @@ X-XSS-Protection
 
 脆弱性発見のプロ「キヌガワ マサト」さんは日本人だった - ITmedia エンタープライズ http://www.itmedia.co.jp/enterprise/articles/1412/20/news003.html
 
+>キヌガワさんによると、趣味は音楽鑑賞とクロスサイトスクリプティング（XSS）。
+
+>キヌガワさんの成果が特に目立つのはGoogleだ。2010年の制度開始以降、報奨金の対象になったものだけで127件の脆弱性を同社に報告しており、報告件数は世界で2番目に多い。
+
+>キヌガワさんがバグ探しに魅力を感じるのは、成果が評価されるというだけではなく、コードやWebブラウザの複雑な挙動の中から、まるで「宝物」を見つけ出したかのような喜びを感じられるからだという。
+
+>コンピュータ系の専門学校に在籍していた2009年にふとしたきっかけでXSSに“目覚め”、脆弱性探しに興味を覚えたのだという。
+
 [Masato Kinugawa Security Blog](https://masatokinugawa.l0.cm/)
+
+[Masato Kinugawa\(@kinugawamasato\)さん \| Twitter](https://twitter.com/kinugawamasato)
