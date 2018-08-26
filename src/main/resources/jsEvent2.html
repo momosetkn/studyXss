@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <title>xss</title>
     <script>
+        var personalData = "★秘密のデータ";
         var init = a => document.getElementById('message').innerText = ("message: "+a);
     </script>
 </head>
-<body onload="init('{{ message | escape(strategy="js") }}');">
+<body onload="init(`{{ message | escape(strategy="js") }}`);">
 
 <div>
     <h1>
-        イベントハンドラのXSS
+        イベントハンドラのXSS2
     </h1>
     <span id="message">
     </span>

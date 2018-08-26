@@ -1,4 +1,4 @@
-# Webセキュリティ３回目「表示処理に伴う問題_発展編
+# Webセキュリティ３回目「表示処理に伴う問題」エスケープの実装編
 
 
 # HTMLエスケープ
@@ -20,7 +20,7 @@ link = "https://google.com onclick=alert();"
 <a href=https://google.com onclick=alert();>link</a>
 ```
 
-なので、ダブルクォートで囲みましょう
+スペースを入れて属性値を指定されてしまうので、ダブルクォートで囲みましょう
 ```
 <a href="https://google.com onclick=alert();">link</a>
 ```
@@ -42,14 +42,18 @@ javascript:を使えないようにするため
 
 リンク先のドメインチェック
 
+### 未対策
+
 <a href="./linkUnsafe?url=http://localhost:8080/">http://localhost:8080/</a><br>
-<a href="./linkUnsafe?url=https://google.co.jp">https://google.co.jp</a><br>
-<a href="./linkUnsafe?url=https://google.co.jp onclick=alert(document.cookie);">https://google.co.jp onclick=alert(document.cookie);</a><br>
+<a href="./linkUnsafe?url=https://google.co.jp/">https://google.co.jp/</a><br>
+<a href="./linkUnsafe?url=https://google.co.jp/ onclick=alert(document.cookie);">https://google.co.jp/ onclick=alert(document.cookie);</a><br>
 <a href="./linkUnsafe?url=javascript:alert(document.cookie);">javascript:alert();</a><br>
 
+### 対策済
+
 <a href="./link?url=http://localhost:8080/">http://localhost:8080/</a><br>
-<a href="./link?url=https://google.co.jp">https://google.co.jp</a><br>
-<a href="./link?url=https://google.co.jp onclick=alert(document.cookie);">https://google.co.jp onclick=alert();</a><br>
+<a href="./link?url=https://google.co.jp/">https://google.co.jp/</a><br>
+<a href="./link?url=https://google.co.jp/ onclick=alert(document.cookie);">https://google.co.jp/ onclick=alert();</a><br>
 <a href="./link?url=javascript:alert();">javascript:alert(document.cookie);</a><br>
 
 # JavaScriptのエスケープ
@@ -61,13 +65,28 @@ JavaScriptの文字列リテラルとしてエスケープすべき文字
 - " => \"
 - 改行 => \n
 
+JavaScriptにおいては文字参照も解釈してしまうので、`'`=>`&#39;`へのエスケープではだめ。
+
 ※TODO バッククォートはどうなんだろう？
 
 # イベントハンドラのXSS
 
-<a href="./jsEvent?initMsg=hello">正常系1</a>
-<a href="./jsEvent?initMsg=');alert(document.cookie)//">正常系2</a>
+## 未対策
 
+<a href="./jsEventUnsafe?message=hello">message=hello</a><br>
+<a href="./jsEventUnsafe?message=');alert(document.cookie)//">message=');alert(document.cookie)//</a>
+
+## 対策済
+
+<a href="./jsEvent?message=hello">message=hello</a><br>
+<a href="./jsEvent?message=');alert(document.cookie)//">message=');alert(document.cookie)//</a>
+
+## おまけ
+
+JavaScriptのテンプレートリテラル
+
+<a href="./jsEvent2?message=「${personalData}」">message=${personalData}</a><br>
+<a href="./jsEvent2?message=`);alert(document.cookie)//">message=`);alert(document.cookie)//</a><br>
 
 # script要素内のXSS
 
@@ -77,17 +96,21 @@ JavaScriptとしてのエスケープをする。しかしそれだけでは不�
 
 `</script>`という文字列が出現しないようにする。
 
-※今回使ったテンプレートエンジンではJavaScriptのエスケープ処理でうまいことやってくれてました。
+※今回使ったテンプレートエンジン(Pebble)ではJavaScriptのエスケープ処理でうまいことやってくれてました。<br>
+<のあとの/はエスケープする仕様らしい
 
 [unbescape: powerful, fast and easy escape/unescape operations for Java](https://www.unbescape.org/)
 
-<のあとの/はエスケープするらしいです。
 
-<a href="./scriptTagUnsafe?logMsg=hello">hello</a>
-<a href="./scriptTagUnsafe?logMsg=</script><script>alert(document.cookie)//">/script><script>alert(document.cookie)//</a>
+## 未対策
 
-<a href="./scriptTag?logMsg=hello">hello</a>
-<a href="./scriptTag?logMsg=</script><script>alert(document.cookie)//">/script><script>alert(document.cookie)//</a>
+<a href="./scriptTagUnsafe?logMsg=hello">hello</a><br>
+<a href="./scriptTagUnsafe?logMsg=</script><script>alert(document.cookie)//">&lt;/script>&lt;script>alert(document.cookie)//</a>
+
+## 対策済
+
+<a href="./scriptTag?logMsg=hello">hello</a><br>
+<a href="./scriptTag?logMsg=</script><script>alert(document.cookie)//">&lt;/script>&lt;script>alert(document.cookie)//</a>
 
 script要素の外でパラメータを定義して、JavaScriptから参照するようにする方法もある。
 ```html
@@ -109,7 +132,7 @@ console.log(e1.dataset.hello);
 ```
 
 カスタムデータ属性とインラインJSONPをもちいる方法は安全性という観点では差が無いので、
-使っっているフレームワークで選べばいいのでは。
+使っているフレームワークなどで決めてください。
 
 # HTMLやCSSを許す場合
 

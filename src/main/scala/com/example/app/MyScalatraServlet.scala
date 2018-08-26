@@ -113,16 +113,22 @@ class MyScalatraServlet extends ScalatraServlet
     )
   }
   get("/jsEvent") {
-    val initMsg = request.getParameter("initMsg")
+    val message = request.getParameter("message")
 
     html("jsEvent.html",
-      "initMsg" -> initMsg)
+      "message" -> message)
   }
   get("/jsEventUnsafe") {
-    val initMsg = request.getParameter("initMsg")
+    val message = request.getParameter("message")
 
     html("jsEventUnsafe.html",
-      "initMsg" -> initMsg)
+      "message" -> message)
+  }
+  get("/jsEvent2") {
+    val message = request.getParameter("message")
+
+    html("jsEvent2.html",
+      "message" -> message)
   }
 
   get("/scriptTag") {

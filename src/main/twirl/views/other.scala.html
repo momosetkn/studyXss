@@ -1,4 +1,4 @@
-@(initMsg: String, url: String, badUrl: Boolean)
+@(message: String, url: String, badUrl: Boolean)
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,7 +8,7 @@
         var init = a => console.log(a);
     </script>
 </head>
-<body onload="init('@initMsg');">
+<body onload="init('@message');">
 
 @if( badUrl ) {
     <div>httpsかhttpしか許容してません</div>

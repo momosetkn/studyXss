@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <title>xss</title>
     <script>
-        var init = a => document.getElementById('initMsg').innerText = ("initMsg: "+a);
+        var init = a => document.getElementById('message').innerText = ("message: "+a);
     </script>
 </head>
-<body onload="init('{{ initMsg | escape(strategy="html") }}');">
+<body onload="init('{{ message | escape(strategy="html") }}');">
 
 <div>
-イベントハンドラのXSS
-<span id="initMsg">
-</span>
+    <h1>
+        イベントハンドラのXSS(未対策)
+    </h1>
+    <span id="message">
+    </span>
 </div>
 
 </body>

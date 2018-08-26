@@ -2,4 +2,6 @@
 
 [基本編](basic.md)
 
-[発展編](advanced.md)
+[その他](other.md)
+
+[エスケープの実装編](escape.md)

