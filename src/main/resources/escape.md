@@ -60,14 +60,14 @@ javascript:を使えないようにするため
 
 JavaScriptの文字列リテラルとしてエスケープすべき文字
 
-- \ => \\
-- ' => \'
-- " => \"
+- \ => \\\
+- ' => \\'
+- " => \\"
 - 改行 => \n
 
 JavaScriptにおいては文字参照も解釈してしまうので、`'`=>`&#39;`へのエスケープではだめ。
 
-※TODO バッククォートはどうなんだろう？
+※疑問点：バッククォート（テンプレートリテラル）はどうなんだろう？
 
 # イベントハンドラのXSS
 
@@ -147,5 +147,4 @@ HTMLの構文を解析して、表示していい要素のみを抽出する方�
 
 CSSのexprssionsという機能でjavascriptを起動できてしまう（IEの拡張機能…、デフォルトではOFF）
 
-[Masato Kinugawa Security Blog](https://masatokinugawa.l0.cm/)
-
+[CSSのIE独自拡張 expression\(\) 関数は外部cssに記述しても動作しない。 \- kanonjiの日記](http://d.hatena.ne.jp/kanonji/20090707/1246977771)
